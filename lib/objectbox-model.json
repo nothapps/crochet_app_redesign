@@ -1,0 +1,270 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:5378978528683374602",
+      "lastPropertyId": "6:589133721341823504",
+      "name": "Counter",
+      "properties": [
+        {
+          "id": "1:3453328328882281627",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:4123033809192450925",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "3:4473443142890237668",
+          "name": "value",
+          "type": 6
+        },
+        {
+          "id": "4:1939422218186573386",
+          "name": "dateAdded",
+          "type": 10
+        },
+        {
+          "id": "5:2422153581660076194",
+          "name": "counterTypeId",
+          "type": 6
+        },
+        {
+          "id": "6:589133721341823504",
+          "name": "linkedProjectId",
+          "indexId": "1:3283158433182953482",
+          "type": 11,
+          "flags": 520,
+          "relationTarget": "CrochetProject"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "2:3941222417006982623",
+      "lastPropertyId": "7:4245380848242571234",
+      "name": "CrochetPattern",
+      "properties": [
+        {
+          "id": "1:5567719980043123409",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:243583493147183257",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "3:240580371403321315",
+          "name": "dateAdded",
+          "type": 10
+        },
+        {
+          "id": "4:2534270522801004436",
+          "name": "webLink",
+          "type": 9
+        },
+        {
+          "id": "5:8975451692242050310",
+          "name": "ytLink",
+          "type": 9
+        },
+        {
+          "id": "6:306671531749045047",
+          "name": "pdfPath",
+          "type": 9
+        },
+        {
+          "id": "7:4245380848242571234",
+          "name": "image",
+          "type": 23
+        }
+      ],
+      "relations": [
+        {
+          "id": "1:8800463454997095893",
+          "name": "linkedProjects",
+          "targetId": "3:1356725143851871386"
+        }
+      ]
+    },
+    {
+      "id": "3:1356725143851871386",
+      "lastPropertyId": "8:364799222110378401",
+      "name": "CrochetProject",
+      "properties": [
+        {
+          "id": "1:942330935117553610",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:8896579687943549159",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "3:8190834577946953482",
+          "name": "dateAdded",
+          "type": 10
+        },
+        {
+          "id": "4:7075454764808975581",
+          "name": "hooks",
+          "type": 29
+        },
+        {
+          "id": "5:7122146002206095942",
+          "name": "linkedPatternId",
+          "indexId": "2:1732351365494030273",
+          "type": 11,
+          "flags": 520,
+          "relationTarget": "CrochetPattern"
+        },
+        {
+          "id": "6:2476850564826503612",
+          "name": "image",
+          "type": 23
+        },
+        {
+          "id": "7:8279358165492286538",
+          "name": "icon",
+          "type": 9
+        },
+        {
+          "id": "8:364799222110378401",
+          "name": "progressId",
+          "type": 6
+        }
+      ],
+      "relations": [
+        {
+          "id": "2:2779547033152406191",
+          "name": "linkedYarn",
+          "targetId": "5:17037979609883712"
+        }
+      ]
+    },
+    {
+      "id": "4:635915352324521449",
+      "lastPropertyId": "4:7541492491321514729",
+      "name": "Note",
+      "properties": [
+        {
+          "id": "1:3337164191063826787",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:2407404769111278391",
+          "name": "content",
+          "type": 9
+        },
+        {
+          "id": "3:4336527812821370760",
+          "name": "dateAdded",
+          "type": 10
+        },
+        {
+          "id": "4:7541492491321514729",
+          "name": "linkedProjectId",
+          "indexId": "3:6188727567967898901",
+          "type": 11,
+          "flags": 520,
+          "relationTarget": "CrochetProject"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "5:17037979609883712",
+      "lastPropertyId": "11:2780442833070518422",
+      "name": "Yarn",
+      "properties": [
+        {
+          "id": "1:5084958683484699349",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:1556239057895256135",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "3:2535830187243595895",
+          "name": "dateAdded",
+          "type": 10
+        },
+        {
+          "id": "4:2886105853154992186",
+          "name": "fiberContent",
+          "type": 30
+        },
+        {
+          "id": "5:9222646607757375775",
+          "name": "fiberPercentage",
+          "type": 27
+        },
+        {
+          "id": "6:5866566580649484630",
+          "name": "yarnWeight",
+          "type": 8
+        },
+        {
+          "id": "7:8521546584172229612",
+          "name": "yarnLength",
+          "type": 6
+        },
+        {
+          "id": "8:5161338957117724266",
+          "name": "recommendedHooks",
+          "type": 29
+        },
+        {
+          "id": "9:4933237627975479966",
+          "name": "yarnColors",
+          "type": 27
+        },
+        {
+          "id": "10:724713602538912453",
+          "name": "image",
+          "type": 23
+        },
+        {
+          "id": "11:2780442833070518422",
+          "name": "weightCategoryId",
+          "type": 6
+        }
+      ],
+      "relations": [
+        {
+          "id": "3:1496050359394276461",
+          "name": "linkedProjects",
+          "targetId": "3:1356725143851871386"
+        }
+      ]
+    }
+  ],
+  "lastEntityId": "5:17037979609883712",
+  "lastIndexId": "3:6188727567967898901",
+  "lastRelationId": "3:1496050359394276461",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}
