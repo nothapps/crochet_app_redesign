@@ -1,8 +1,10 @@
+import 'package:crochet_app_redesign/objectbox_init.dart';
 import 'package:crochet_app_redesign/shared/widgets/custom_navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flex_seed_scheme/flex_seed_scheme.dart';
 
 void main() {
+  initObjectBox();
   runApp(const CrochetApp());
 }
 
