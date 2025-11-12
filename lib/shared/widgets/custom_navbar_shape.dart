@@ -1,3 +1,4 @@
+import 'package:crochet_app_redesign/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 class CustomNavBarShape extends StatelessWidget {
@@ -6,14 +7,14 @@ class CustomNavBarShape extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(8),
       child: Stack(
         children: [
           CustomPaint(
               painter: NavBarPainter(
                   navBarColor: Theme.of(context).colorScheme.surfaceContainer),
               child: Container(
-                height: 80,
+                height: navBarHeight,
               ))
         ],
       ),
