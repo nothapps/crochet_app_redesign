@@ -1,16 +1,7 @@
 # crochet_app_redesign
 
-A redesign of the crochet app.
+A complete redesign of an app that was the topic of my bachelor's thesis. Due to the previous app's large scope I had to sacrafice some aspects, such as UI design, in order to finish in time. 
 
-## Getting Started
+The app (name pending) allows the user to manage their crochet projects, store patterns and yarn, and includes features helpful while crocheting such as counters and notes.
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
