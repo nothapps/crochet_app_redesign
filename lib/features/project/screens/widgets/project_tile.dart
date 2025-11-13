@@ -1,9 +1,11 @@
 import 'dart:math';
-
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 class ProjectTile extends StatelessWidget {
-  const ProjectTile({super.key});
+  const ProjectTile({super.key, required this.cutWidth});
+
+  final double cutWidth;
 
   @override
   Widget build(BuildContext context) {
@@ -15,14 +17,14 @@ class ProjectTile extends StatelessWidget {
     ];
     final random = Random();
     final randomIndex = random.nextInt(imageUrls.length);
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        LayoutBuilder(
-          builder: (BuildContext context, BoxConstraints constraints) {
-            final cutWidth = constraints.maxWidth * 0.3;
 
-            return PhysicalShape(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            PhysicalShape(
               color: Colors.transparent,
               elevation: 7,
               shadowColor: Colors.black54,
@@ -39,18 +41,22 @@ class ProjectTile extends StatelessWidget {
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: cutWidth + 10, bottom: 5),
-                    child: Text('may 12th, 2025',
-                        style: Theme.of(context).textTheme.labelMedium),
+                    child: AutoSizeText(
+                      'may 12th, 2025',
+                      style: Theme.of(context).textTheme.labelMedium,
+                      minFontSize: 8,
+                      maxLines: 1,
+                    ),
                   ),
                 ],
               ),
-            );
-          },
-        ),
-        Padding(
-          padding: const EdgeInsets.all(5),
-          child: Text('hello cute kitty :)',
-              style: Theme.of(context).textTheme.labelLarge),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(5),
+              child: Text('hello cute kitty :)',
+                  style: Theme.of(context).textTheme.labelLarge),
+            ),
+          ],
         )
       ],
     );
@@ -87,36 +93,3 @@ class ProjectTileClipper extends CustomClipper<Path> {
   @override
   bool shouldReclip(CustomClipper<Path> oldClipper) => true;
 }
-
-// class TileShadowPainter extends CustomPainter {
-//   @override
-//   void paint(Canvas canvas, Size size) {
-//     final double cutHeight = 30;
-//     final double cornerRadius = 20;
-//     Path path = Path();
-
-//     path.moveTo(0, cornerRadius);
-//     path.lineTo(0, size.height - cornerRadius);
-//     path.quadraticBezierTo(0, size.height, cornerRadius, size.height);
-//     path.lineTo(size.width * 0.3 - cornerRadius, size.height);
-//     path.quadraticBezierTo(size.width * 0.3, size.height, size.width * 0.3,
-//         size.height - cutHeight / 2);
-//     path.quadraticBezierTo(size.width * 0.3, size.height - cutHeight,
-//         size.width * 0.3 + cornerRadius, size.height - cutHeight);
-//     path.lineTo(size.width - cornerRadius, size.height - cutHeight);
-//     path.quadraticBezierTo(size.width, size.height - cutHeight, size.width,
-//         size.height - (cutHeight + cornerRadius));
-//     path.lineTo(size.width, cornerRadius);
-//     path.quadraticBezierTo(size.width, 0, size.width - cornerRadius, 0);
-//     path.lineTo(cornerRadius, 0);
-//     path.quadraticBezierTo(0, 0, 0, cornerRadius);
-//     path.close();
-
-//     canvas.drawShadow(path, Colors.black45, 5, false);
-//   }
-
-//   @override
-//   bool shouldRepaint(CustomPainter oldDelegate) {
-//     return true;
-//   }
-// }

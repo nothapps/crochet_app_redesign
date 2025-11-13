@@ -1,5 +1,6 @@
 import 'package:crochet_app_redesign/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:sliver_tools/sliver_tools.dart';
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar({
@@ -8,47 +9,52 @@ class CustomAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    return SliverStack(
       children: [
-        Container(
-          height: navBarHeight / 2,
-          color: Theme.of(context).colorScheme.surface,
+        SliverPinnedHeader(
+          child: Container(
+            height: navBarHeight / 2,
+            color: Theme.of(context).colorScheme.surface,
+          ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(8),
-          child: AppBar(
-            title: Text('Projects'),
-            centerTitle: true,
-            backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadiusGeometry.circular(30)),
-            actions: [
-              Padding(
-                padding: const EdgeInsets.only(right: 10),
-                child: IconButton(
-                    onPressed: () {}, icon: Icon(Icons.account_circle)),
-              )
-            ],
-            bottom: PreferredSize(
-                preferredSize: const Size(double.infinity, kToolbarHeight),
-                child: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Row(
-                    spacing: 10,
-                    children: [
-                      Expanded(
-                        child: SizedBox(
-                          height: 40,
-                          child: SearchBar(
-                            leading: Icon(Icons.search),
-                          ),
+        SliverAppBar(
+          title: Text('Projects'),
+          centerTitle: true,
+          floating: true,
+          pinned: true,
+          snap: false,
+          expandedHeight: kToolbarHeight * 2,
+          backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadiusGeometry.circular(30)),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: IconButton(
+                  onPressed: () {}, icon: Icon(Icons.account_circle)),
+            )
+          ],
+          bottom: PreferredSize(
+              preferredSize: const Size(double.infinity, kToolbarHeight * 1.1),
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  spacing: 10,
+                  children: [
+                    Flexible(
+                      fit: FlexFit.loose,
+                      child: SizedBox(
+                        height: 40,
+                        child: SearchBar(
+                          leading: Icon(Icons.search),
                         ),
                       ),
-                      IconButton(onPressed: () {}, icon: Icon(Icons.filter_alt))
-                    ],
-                  ),
-                )),
-          ),
+                    ),
+                    IconButton(onPressed: () {}, icon: Icon(Icons.filter_alt))
+                  ],
+                ),
+              )),
         ),
       ],
     );

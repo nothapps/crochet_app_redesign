@@ -8,16 +8,12 @@ class CustomNavBarShape extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8),
-      child: Stack(
-        children: [
-          CustomPaint(
-              painter: NavBarPainter(
-                  navBarColor: Theme.of(context).colorScheme.surfaceContainer),
-              child: Container(
-                height: navBarHeight,
-              ))
-        ],
-      ),
+      child: CustomPaint(
+          painter: NavBarPainter(
+              navBarColor: Theme.of(context).colorScheme.surfaceContainer),
+          child: Container(
+            height: navBarHeight,
+          )),
     );
   }
 }
