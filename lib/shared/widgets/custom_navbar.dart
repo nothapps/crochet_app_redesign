@@ -1,4 +1,5 @@
 import 'package:crochet_app_redesign/features/project/screens/project_library.dart';
+import 'package:crochet_app_redesign/shared/widgets/animated_fab.dart';
 import 'package:crochet_app_redesign/shared/widgets/custom_navbar_shape.dart';
 import 'package:crochet_app_redesign/shared/logic/navbar_logic.dart';
 import 'package:crochet_app_redesign/utils/constants.dart';
@@ -59,10 +60,7 @@ class CustomNavBar extends HookWidget {
           ),
         )
       ]),
-      floatingActionButton: FloatingActionButton(
-          onPressed: () {},
-          shape: const CircleBorder(),
-          child: Icon(Icons.add, size: 35)),
+      floatingActionButton: AnimatedFAB(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
