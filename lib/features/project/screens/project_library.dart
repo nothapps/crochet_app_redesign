@@ -1,6 +1,8 @@
+import 'package:crochet_app_redesign/features/project/screens/project_detail_page.dart';
 import 'package:crochet_app_redesign/features/project/screens/widgets/project_tile.dart';
 import 'package:crochet_app_redesign/shared/widgets/custom_appbar.dart';
 import 'package:crochet_app_redesign/utils/constants.dart';
+import 'package:crochet_app_redesign/utils/global_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
@@ -35,11 +37,14 @@ class ProjectLibrary extends StatelessWidget {
                             child: LayoutBuilder(builder: (BuildContext context,
                                 BoxConstraints constraints) {
                               final cutWidth = constraints.maxWidth * 0.3;
-                              return ProjectTile(
-                                cutWidth: cutWidth,
+                              return InkWell(
+                                onTap: () => goTo(context, ProjectDetailPage()),
+                                borderRadius: BorderRadius.circular(30),
+                                child: ProjectTile(
+                                  cutWidth: cutWidth,
+                                ),
                               );
                             }));
-                        // child: ProjectTile()));
                       },
                     ),
                     gridDelegate:
