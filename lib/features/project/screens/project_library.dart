@@ -20,34 +20,38 @@ class ProjectLibrary extends StatelessWidget {
 
           return Scaffold(
             extendBodyBehindAppBar: true,
-            body: CustomScrollView(
-              slivers: [
-                CustomAppBar(),
-                SliverPadding(
-                  padding: EdgeInsets.only(
-                      left: 8, right: 8, bottom: navBarHeight * 1.5),
-                  sliver: SliverMasonryGrid(
-                    delegate: SliverChildBuilderDelegate(
-                      childCount: 20,
-                      (BuildContext context, int index) {
-                        return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: LayoutBuilder(builder: (BuildContext context,
-                                BoxConstraints constraints) {
-                              final cutWidth = constraints.maxWidth * 0.3;
-                              return ProjectTile(
-                                cutWidth: cutWidth,
-                              );
-                            }));
-                        // child: ProjectTile()));
-                      },
+            body: SafeArea(
+              bottom: false,
+              child: CustomScrollView(
+                slivers: [
+                  CustomAppBar(),
+                  SliverPadding(
+                    padding: EdgeInsets.only(
+                        left: 8, right: 8, bottom: navBarHeight * 1.5),
+                    sliver: SliverMasonryGrid(
+                      delegate: SliverChildBuilderDelegate(
+                        childCount: 20,
+                        (BuildContext context, int index) {
+                          return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: LayoutBuilder(builder:
+                                  (BuildContext context,
+                                      BoxConstraints constraints) {
+                                final cutWidth = constraints.maxWidth * 0.3;
+                                return ProjectTile(
+                                  cutWidth: cutWidth,
+                                );
+                              }));
+                          // child: ProjectTile()));
+                        },
+                      ),
+                      gridDelegate:
+                          SliverSimpleGridDelegateWithMaxCrossAxisExtent(
+                              maxCrossAxisExtent: screenWidth / crossAxisCount),
                     ),
-                    gridDelegate:
-                        SliverSimpleGridDelegateWithMaxCrossAxisExtent(
-                            maxCrossAxisExtent: screenWidth / crossAxisCount),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           );
         },

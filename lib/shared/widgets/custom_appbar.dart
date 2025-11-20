@@ -23,7 +23,7 @@ class CustomAppBar extends StatelessWidget {
           floating: true,
           pinned: true,
           snap: false,
-          expandedHeight: kToolbarHeight * 2,
+          expandedHeight: kToolbarHeight * 2.2,
           backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadiusGeometry.circular(30)),
@@ -35,7 +35,7 @@ class CustomAppBar extends StatelessWidget {
             )
           ],
           bottom: PreferredSize(
-              preferredSize: const Size(double.infinity, kToolbarHeight * 1.1),
+              preferredSize: const Size(double.infinity, kToolbarHeight * 1.5),
               child: Padding(
                 padding: const EdgeInsets.all(10),
                 child: Row(
