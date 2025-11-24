@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flex_seed_scheme/flex_seed_scheme.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   initObjectBox();
   runApp(const CrochetApp());
 }

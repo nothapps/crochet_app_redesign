@@ -13,6 +13,7 @@ class ProjectDetailPage extends HookWidget {
     final logic = ProjectDetailPageLogic();
     final screenWidth = MediaQuery.sizeOf(context).width;
     final screenHeight = MediaQuery.sizeOf(context).height;
+    final safePaddingTop = MediaQuery.of(context).padding.top;
 
     List<Widget> stackChildren = logic.isFirstOnTop.value
         ? [
