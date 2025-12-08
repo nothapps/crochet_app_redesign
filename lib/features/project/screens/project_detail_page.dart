@@ -1,5 +1,6 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:crochet_app_redesign/features/project/logic/detail_page_logic.dart';
+import 'package:crochet_app_redesign/features/project/screens/widgets/detail_item_tiles.dart';
+import 'package:crochet_app_redesign/features/project/screens/widgets/project_image.dart';
 import 'package:crochet_app_redesign/features/project/screens/widgets/shape_painters.dart';
 import 'package:crochet_app_redesign/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -11,22 +12,39 @@ class ProjectDetailPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final logic = ProjectDetailPageLogic();
-    final screenWidth = MediaQuery.sizeOf(context).width;
-    final screenHeight = MediaQuery.sizeOf(context).height;
+
+    // screen size
     final safePaddingTop = MediaQuery.of(context).padding.top;
+    final screenWidth = MediaQuery.sizeOf(context).width;
+    final screenHeight =
+        MediaQuery.sizeOf(context).height - safePaddingTop - pagePadding;
+
+    final double itemsPadding = 10;
+    final double rowsPaddingTop = 20;
+    final double gapBetweenRows = 8;
+
+    List<Widget> projectPhotos = [
+      ProjectPhoto(
+          url:
+              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlkIK7GshHXP0c1rDDLcaoHetAiSxQOac2wg&s',
+          top: screenHeight * allShapesTop + 20,
+          left: 0,
+          right: -20,
+          screenHeight: screenHeight,
+          screenWidth: screenWidth),
+      ProjectPhoto(
+          url:
+              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfWqZMm59i5xb12Ut6RmbbdTeNOr9GtIvlnQ&sg',
+          top: screenHeight * allShapesTop,
+          left: -20,
+          right: 0,
+          screenHeight: screenHeight,
+          screenWidth: screenWidth)
+    ];
 
     List<Widget> stackChildren = logic.isFirstOnTop.value
-        ? [
-            PictureOne(
-              screenHeight: screenHeight,
-              screenWidth: screenWidth,
-            ),
-            PictureTwo(screenHeight: screenHeight, screenWidth: screenWidth)
-          ]
-        : [
-            PictureTwo(screenHeight: screenHeight, screenWidth: screenWidth),
-            PictureOne(screenHeight: screenHeight, screenWidth: screenWidth)
-          ];
+        ? projectPhotos
+        : projectPhotos.reversed.toList();
 
     return Scaffold(
         extendBodyBehindAppBar: true,
@@ -45,122 +63,246 @@ class ProjectDetailPage extends HookWidget {
           ],
         ),
         body: Padding(
-          padding:
-              const EdgeInsets.symmetric(horizontal: pagePadding, vertical: 0),
+          padding: const EdgeInsets.all(pagePadding),
           child: Stack(
             children: [
               CustomPaint(
                 painter: RightToLeftShapes(
-                    bottomShapeColor: Theme.of(context).colorScheme.primary,
-                    topShapeColor:
-                        Theme.of(context).colorScheme.primaryContainer,
-                    leftModifier: 0.35,
-                    rightModifier: 0.75,
-                    topModifier: 0.1,
-                    bottomModifier: 0.45),
+                  bottomShapeColor: Theme.of(context).colorScheme.primary,
+                  topShapeColor: Theme.of(context).colorScheme.primaryContainer,
+                  leftModifier: projectShapeLeft,
+                  rightModifier: projectShapeRight,
+                  bottomModifier: projectShapeBottom,
+                ),
                 child: SizedBox(
-                  height: screenHeight,
+                  height: MediaQuery.sizeOf(context).height,
                   width: screenWidth,
                 ),
               ),
-              GestureDetector(
-                onTap: () =>
-                    logic.isFirstOnTop.value = !logic.isFirstOnTop.value,
-                // onDoubleTap: ,
-                child: Stack(children: stackChildren),
+              Positioned(
+                left: screenWidth * 0.08,
+                child: GestureDetector(
+                  onTap: () =>
+                      logic.isFirstOnTop.value = !logic.isFirstOnTop.value,
+                  // onDoubleTap: ,
+                  child: SizedBox(
+                      height: screenHeight * 0.5,
+                      width: screenWidth * 0.55,
+                      child: Stack(children: stackChildren)),
+                ),
               ),
               Positioned(
-                top: screenHeight * bottomShapeBoundary + 50,
-                left: 10,
-                right: screenWidth * 0.6,
-                child: SizedBox(
-                  width: screenWidth * 0.3,
-                  height: screenHeight * 0.55,
+                top: screenHeight * 0.12,
+                left: screenWidth * 0.62,
+                child: IconButton(
+                    onPressed: () =>
+                        logic.isFirstOnTop.value = !logic.isFirstOnTop.value,
+                    icon: Icon(Icons.screen_rotation_alt_rounded, size: 25)),
+              ),
+              Positioned(
+                  top: screenHeight * 0.22,
+                  right: screenWidth * 0.01,
                   child: Column(
-                    spacing: 100,
                     children: [
-                      Text('Yarn',
-                          style: Theme.of(context).textTheme.headlineSmall),
-                      Text('Hooks',
-                          style: Theme.of(context).textTheme.headlineSmall),
-                      Text('Counters',
-                          style: Theme.of(context).textTheme.headlineSmall),
-                      Text('Notes',
-                          style: Theme.of(context).textTheme.headlineSmall)
+                      Card(
+                        color:
+                            Theme.of(context).colorScheme.surfaceContainerLow,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadiusGeometry.circular(
+                                detailRoundedCorners)),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 5),
+                          child: Text('Progress',
+                              style: Theme.of(context).textTheme.bodyLarge),
+                        ),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        // spacing: 10,
+                        children: [
+                          Row(
+                            children: [
+                              Text('Not started'),
+                              Checkbox(
+                                value: true,
+                                onChanged: (bool? value) {},
+                              )
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Text('Started'),
+                              Checkbox(
+                                value: false,
+                                onChanged: (bool? value) {},
+                              )
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Text('Finished'),
+                              Checkbox(
+                                value: false,
+                                onChanged: (bool? value) {},
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
                     ],
+                  )),
+              Positioned(
+                top: screenHeight * projectShapeBottom + rowsPaddingTop,
+                left: pagePadding * 2.5,
+                child: SizedBox(
+                  width: screenWidth * 0.25,
+                  height: screenHeight * (1 - projectShapeBottom) -
+                      rowsPaddingTop / 2,
+                  child: LayoutBuilder(
+                    builder:
+                        (BuildContext context, BoxConstraints constraints) {
+                      final double columnHeight =
+                          constraints.maxHeight - 4 * gapBetweenRows;
+                      return Column(
+                        spacing: gapBetweenRows,
+                        children: [
+                          SizedBox(
+                            height: columnHeight * 0.25,
+                            child: Align(
+                              alignment: AlignmentGeometry.centerLeft,
+                              child: Text('Yarn',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineSmall),
+                            ),
+                          ),
+                          SizedBox(
+                            height: columnHeight * 0.1,
+                            child: Align(
+                              alignment: AlignmentGeometry.centerLeft,
+                              child: Text('Hooks',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineSmall),
+                            ),
+                          ),
+                          SizedBox(
+                            height: columnHeight * 0.25,
+                            child: Align(
+                              alignment: AlignmentGeometry.centerLeft,
+                              child: Text('Counters',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineSmall),
+                            ),
+                          ),
+                          SizedBox(
+                            height: columnHeight * 0.4,
+                            child: Align(
+                              alignment: AlignmentGeometry.centerLeft,
+                              child: Text('Notes',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineSmall),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+              ),
+              Positioned(
+                top: screenHeight * projectShapeBottom + rowsPaddingTop,
+                left: screenWidth * projectShapeLeft + itemsPadding,
+                right: 0,
+                child: SizedBox(
+                  height: screenHeight * (1 - projectShapeBottom) -
+                      rowsPaddingTop / 2,
+                  child: LayoutBuilder(
+                    builder:
+                        (BuildContext context, BoxConstraints constraints) {
+                      final double columnHeight =
+                          constraints.maxHeight - 4 * gapBetweenRows;
+                      return Column(
+                        spacing: gapBetweenRows,
+                        children: [
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: SizedBox(
+                              height: columnHeight * 0.25,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                spacing: 10,
+                                children: [
+                                  for (int i = 1; i <= 5; i++)
+                                    if (i.isEven)
+                                      YarnItem(name: 'random yarn $i')
+                                    else
+                                      YarnItem(name: 'longer random yarn $i')
+                                ],
+                              ),
+                            ),
+                          ),
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: SizedBox(
+                              height: columnHeight * 0.1,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                spacing: 10,
+                                children: [
+                                  for (int i = 1; i <= 5; i++)
+                                    HookItem(size: i.toDouble()),
+                                ],
+                              ),
+                            ),
+                          ),
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: SizedBox(
+                              height: columnHeight * 0.25,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                spacing: 10,
+                                children: [
+                                  for (int i = 1; i <= 5; i++)
+                                    if (i.isEven)
+                                      CounterItem(
+                                          name: 'random counter $i',
+                                          value: i * 10)
+                                    else
+                                      CounterItem(name: ' counter $i', value: i)
+                                ],
+                              ),
+                            ),
+                          ),
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: SizedBox(
+                              height: columnHeight * 0.4,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                spacing: 10,
+                                children: [
+                                  // IconButton.filled(
+                                  //     onPressed: () {}, icon: Icon(Icons.add)),
+                                  for (int i = 1; i <= 5; i++)
+                                    NoteItem(
+                                        content: 'this\nis\nnote\nnumber\n\n$i')
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
                   ),
                 ),
               ),
             ],
           ),
         ));
-  }
-}
-
-class PictureTwo extends StatelessWidget {
-  const PictureTwo({
-    super.key,
-    required this.screenHeight,
-    required this.screenWidth,
-  });
-
-  final double screenHeight;
-  final double screenWidth;
-
-  @override
-  Widget build(BuildContext context) {
-    return Positioned(
-      top: screenHeight * topShapeBoundary,
-      left: -40,
-      right: 0,
-      child: SizedBox(
-        height: screenHeight * 0.35,
-        child: FittedBox(
-          fit: BoxFit.scaleDown,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: Image.network(
-                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlkIK7GshHXP0c1rDDLcaoHetAiSxQOac2wg&s',
-                height: screenHeight * 0.3,
-                width: screenWidth * 0.45,
-                fit: BoxFit.cover),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class PictureOne extends StatelessWidget {
-  const PictureOne({
-    super.key,
-    required this.screenHeight,
-    required this.screenWidth,
-  });
-
-  final double screenHeight;
-  final double screenWidth;
-
-  @override
-  Widget build(BuildContext context) {
-    return Positioned(
-      top: screenHeight * topShapeBoundary + 20,
-      left: 0,
-      right: -40,
-      child: SizedBox(
-        height: screenHeight * 0.35,
-        child: FittedBox(
-          fit: BoxFit.scaleDown,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: Image.network(
-                'https://image.petmd.com/files/inline-images/black-cat-gold-eyes.jpeg?VersionId=az8eSZaz3xQUDlE7Z6.0.le6vQYDoOKy',
-                height: screenHeight * 0.3,
-                width: screenWidth * 0.45,
-                fit: BoxFit.cover),
-          ),
-        ),
-      ),
-    );
   }
 }
